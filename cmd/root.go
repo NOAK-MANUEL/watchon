@@ -16,6 +16,8 @@ import (
 var (
 	timeStamp = make(map[string]time.Time)
 	only string
+     runningExec *exec.Cmd
+
 )
 
 
@@ -70,7 +72,6 @@ var root = &cobra.Command{
 
 		fmt.Println("Watching")
 
-		var runningExec *exec.Cmd
 
 		for {
 			select{
