@@ -1,17 +1,17 @@
-# watchserver
+# watchon
 
 A lightweight Go development tool that watches your project files and automatically restarts a running command when changes are detected.
 
-Inspired by tools like **nodemon**, `watchserver` is designed for commands such as:
+Inspired by tools like **nodemon**, `watchon` is designed for commands such as:
 
 ```bash
-watchserver go run .
+watchon go run .
 ```
 
 or:
 
 ```bash
-watchserver npm run dev
+watchon npm run dev
 ```
 
 ## Features
@@ -29,13 +29,13 @@ Clone the repository:
 
 ```bash
 git clone <repository-url>
-cd watchserver
+cd watchon
 ```
 
 Build the binary:
 
 ```bash
-go build -o watchserver .
+go build -o watchon .
 ```
 
 You can then place the binary somewhere available in your `PATH`.
@@ -45,47 +45,47 @@ You can then place the binary somewhere available in your `PATH`.
 Run a Go application:
 
 ```bash
-watchserver go run .
+watchon go run .
 ```
 
 Run a Node.js development server:
 
 ```bash
-watchserver npm run dev
+watchon npm run dev
 ```
 
 Run another command:
 
 ```bash
-watchserver python app.py
+watchon python app.py
 ```
 
-The command after `watchserver` is the process that will be monitored and restarted.
+The command after `watchon` is the process that will be monitored and restarted.
 
 ## Watch a Specific Directory
 
 Use the `--only` flag to specify the directory to watch:
 
 ```bash
-watchserver --only ./src go run .
+watchon --only ./src go run .
 ```
 
 For example:
 
 ```bash
-watchserver --only ./backend go run .
+watchon --only ./backend go run .
 ```
 
 This allows you to prevent unrelated files from triggering a restart.
 
 ## How It Works
 
-`watchserver` uses [fsnotify](https://github.com/fsnotify/fsnotify) to receive filesystem events from the operating system.
+`watchon` uses [fsnotify](https://github.com/fsnotify/fsnotify) to receive filesystem events from the operating system.
 
 The basic workflow is:
 
 ```text
-                watchserver
+                watchon
                      │
                      ▼
               Watch directory
@@ -118,10 +118,10 @@ main.go changed
 fsnotify detects WRITE
       │
       ▼
-watchserver stops the running process
+watchon stops the running process
       │
       ▼
-watchserver starts it again
+watchon starts it again
 ```
 
 ## Duplicate Events
@@ -138,7 +138,7 @@ Modified: main.go
 
 An editor or operating system can generate multiple underlying filesystem events for a single save operation.
 
-`watchserver` therefore uses event timing to prevent rapid duplicate events from causing unnecessary restarts.
+`watchon` therefore uses event timing to prevent rapid duplicate events from causing unnecessary restarts.
 
 ## Command Arguments
 
@@ -147,7 +147,7 @@ Commands are passed to the underlying process as separate arguments.
 For example:
 
 ```bash
-watchserver go run .
+watchon go run .
 ```
 
 is interpreted as:
@@ -160,7 +160,7 @@ Arguments:   run .
 Similarly:
 
 ```bash
-watchserver npm run dev
+watchon npm run dev
 ```
 
 becomes:
@@ -200,7 +200,7 @@ go build .
 
 ## Project Status
 
-`watchserver` is currently under active development.
+`watchon` is currently under active development.
 
 The goal is to provide a simple, lightweight Go alternative to development watchers such as nodemon, while giving more control over how files are watched and processes are restarted.
 

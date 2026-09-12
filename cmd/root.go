@@ -43,7 +43,7 @@ func watchInnerFile(watcher *fsnotify.Watcher,cwd string){
 	}
 
 var root = &cobra.Command{
-	Use: "watchserver",
+	Use: "watchon",
 	Version: "1.0.0",
 	Short: "Watchserver automatically watch a server. it works like nodemon e.g watchserver go run . , watchserver npm run dev",
 	Run: func(cmd *cobra.Command, args []string) {
