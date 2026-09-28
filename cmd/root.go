@@ -70,7 +70,20 @@ var root = &cobra.Command{
 
 		
 
-		fmt.Println("Watching")
+		fmt.Println("Watching...")
+
+		if runningExec == nil {
+				runningExec = exec.Command(args[0],args[1:]...)
+				println("Starting project...")
+				runningExec.Stdout = os.Stdout
+				runningExec.Stderr = os.Stderr
+
+				if err := runningExec.Start(); err!=nil{
+					println("Error Starting project:",err)
+					return
+				}
+				println("Project Started")
+		}
 
 
 		for {
@@ -123,19 +136,22 @@ var root = &cobra.Command{
 				if runningExec != nil && runningExec.Process != nil{
 					err = runningExec.Process.Kill()
 					if err != nil {
-						println("Couldn't kill")
-						continue
+						println("Couldn't kill Process")
+					}else{
+							runningExec.Wait()
+
 					}
-					runningExec.Wait()
 				}
 				runningExec = exec.Command(args[0],args[1:]...)
-				println("Restarting server..")
+				println("Restarting project...")
 				runningExec.Stdout = os.Stdout
 				runningExec.Stderr = os.Stderr
 
 				err := runningExec.Start()
+				println("Project Started")
+
 				if err != nil {
-					fmt.Println("start error:", err)
+					fmt.Println("Start error:", err)
 				}
 
 

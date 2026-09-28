@@ -1,6 +1,6 @@
 package main
 
-import "watchserver/cmd"
+import "watchon/cmd"
 
 
 func main(){
